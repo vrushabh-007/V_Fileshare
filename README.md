@@ -184,12 +184,12 @@ git push origin main
 
 **Build image:**
 ```bash
-docker build -t codeshare .
+docker build -t v_fileshare .
 ```
 
 **Run container:**
 ```bash
-docker run -p 3000:3000 -v codeshare-data:/app/uploads codeshare
+docker run -p 3000:3000 -v v_fileshare-data:/app/uploads v_fileshare
 ```
 
 ---
@@ -283,7 +283,7 @@ For issues, questions, or suggestions:
 7. Set Start Command: `npm start`
 8. Deploy! 🎉
 
-Your app will be live in 2-3 minutes at `https://codeshare.onrender.com`
+Your app will be live in 2-3 minutes at `https://v-fileshare.onrender.com`
 
 ---
 

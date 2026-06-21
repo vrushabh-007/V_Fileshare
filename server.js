@@ -191,7 +191,7 @@ app.use((err, req, res, next) => {
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`=========================================`);
-    console.log(`CodeShare Server running on port ${PORT}`);
+    console.log(`V_Fileshare Server running on port ${PORT}`);
     console.log(`Upload limit: ${maxFileSizeMB}MB`);
     console.log(`Storage path: ${UPLOAD_DIR}`);
     console.log(`=========================================`);

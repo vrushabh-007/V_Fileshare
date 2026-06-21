@@ -20,7 +20,7 @@ function startTestServer() {
   });
 }
 
-test('CodeShare Integration and Unit Tests', async (t) => {
+test('V_Fileshare Integration and Unit Tests', async (t) => {
   let serverInstance;
   let baseUrl;
   
@@ -50,7 +50,7 @@ test('CodeShare Integration and Unit Tests', async (t) => {
   let activeCode = null;
   await t.test('POST /api/upload - should upload file successfully and return 6-digit code', async () => {
     const formData = new FormData();
-    const fileContent = 'Hello CodeShare World!';
+    const fileContent = 'Hello V_Fileshare World!';
     const fileBlob = new Blob([fileContent], { type: 'text/plain' });
     formData.append('file', fileBlob, 'test-hello.txt');
 
@@ -83,7 +83,7 @@ test('CodeShare Integration and Unit Tests', async (t) => {
     assert.strictEqual(res.status, 200, 'Download should succeed with 200');
     
     const content = await res.text();
-    assert.strictEqual(content, 'Hello CodeShare World!', 'Downloaded content should match uploaded content');
+    assert.strictEqual(content, 'Hello V_Fileshare World!', 'Downloaded content should match uploaded content');
 
     // Verify download count incremented
     const fileRecord = db.prepare('SELECT downloads FROM files WHERE code = ?').get(activeCode);
