@@ -1,4 +1,4 @@
-# 📤 CodeShare
+# 📤 V_Fileshare
 
 A **modern, privacy-focused file sharing web application** that uses simple 6-digit numeric codes for quick and secure file transfers. Share files instantly without creating accounts or worrying about your data.
 
@@ -18,7 +18,6 @@ A **modern, privacy-focused file sharing web application** that uses simple 6-di
 - 🛡️ **Secure**: HTTPS support, rate limiting, and file validation
 - ⏱️ **Auto-Cleanup**: Files automatically deleted after 24 hours
 - 📱 **Responsive Design**: Works perfectly on desktop, tablet, and mobile
-- 🎨 **Modern UI**: Beautiful dark theme with smooth animations
 
 ---
 
@@ -32,8 +31,8 @@ A **modern, privacy-focused file sharing web application** that uses simple 6-di
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/codeshare.git
-cd codeshare
+git clone https://github.com/vrushabh-007/V_Fileshare
+cd V_Fileshare
 ```
 
 2. **Install dependencies**
@@ -105,7 +104,7 @@ DB_PATH=./filesharing.db
 ## 📁 Project Structure
 
 ```
-codeshare/
+V_Fileshare/
 ├── public/
 │   ├── index.html          # Main HTML template
 │   ├── app.js              # Frontend JavaScript
@@ -257,12 +256,6 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📄 License
-
-This project is licensed under the **ISC License** - see the LICENSE file for details.
-
----
-
 ## 👨‍💻 Author
 
 Created for quick, secure, and hassle-free file sharing.
@@ -271,8 +264,7 @@ Created for quick, secure, and hassle-free file sharing.
 
 ## 🙋 Support
 
-For issues, questions, or suggestions:
-- Open an [Issue](https://github.com/YOUR_USERNAME/codeshare/issues)
+For issues, questions, or suggestions: 
 - Check existing documentation
 - Email: your-email@example.com
 
