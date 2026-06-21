@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeShare - Quick & Secure File Sharing</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        <h1>CodeShare</h1>
+      </div>
+      <p class="tagline">Share files directly using simple 6-digit codes. No accounts, no tracking, completely private.</p>
+    </header>
+
+    <main class="grid">
+      <!-- Send File Card -->
+      <section class="card" id="upload-card">
+        <div class="card-header">
+          <h2>Send a File</h2>
+          <p class="card-subtitle">Upload any file up to 500MB. We'll generate a shareable 6-digit code.</p>
+        </div>
+        
+        <div class="upload-zone" id="drop-zone">
+          <input type="file" id="fileInput" class="file-input-hidden" />
+          <div class="upload-zone-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="upload-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><polyline points="9 15 12 12 15 15"></polyline></svg>
+            <span class="upload-prompt">Drag & drop file here or <span class="browse-btn">browse files</span></span>
+            <span class="upload-details" id="file-size-info">Supports files up to 500 MB</span>
+          </div>
+        </div>
+
+        <div class="progress-container" id="progress-container" style="display: none;">
+          <div class="progress-header">
+            <span class="file-name-label" id="uploading-file-name">filename.zip</span>
+            <span class="progress-percentage" id="progress-text">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+          <div class="progress-footer">
+            <span class="upload-status" id="upload-status">Preparing upload...</span>
+            <button class="btn-cancel" id="cancel-upload-btn" title="Cancel upload">Cancel</button>
+          </div>
+        </div>
+
+        <div class="result-container" id="result-container" style="display: none;">
+          <div class="success-banner">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="success-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <span>Upload successful!</span>
+          </div>
+          <p class="result-instruction">Share this code with the recipient. They can enter it to download your file.</p>
+          <div class="code-display-wrapper">
+            <div class="code-display" id="resultCode">------</div>
+            <button class="icon-btn" id="copy-code-btn" title="Copy code to clipboard">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span class="tooltip" id="copy-tooltip">Copy code</span>
+            </button>
+          </div>
+          <div class="result-footer">
+            <p class="expiry-note">Expires in <span id="expiry-hours-text">24</span> hours</p>
+            <button class="btn btn-secondary-small" id="reset-upload-btn">Send Another File</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Receive File Card -->
+      <section class="card" id="download-card">
+        <div class="card-header">
+          <h2>Receive a File</h2>
+          <p class="card-subtitle">Enter a 6-digit code shared with you to retrieve the file securely.</p>
+        </div>
+        
+        <div class="code-input-form">
+          <div class="code-input-wrapper">
+            <input type="text" id="codeInput" class="code-input" placeholder="000 000" maxlength="7" autocomplete="off" inputmode="numeric" />
+          </div>
+          <button class="btn btn-primary" id="download-btn">Download File</button>
+        </div>
+
+        <div class="status-container" id="download-status-container" style="display: none;">
+          <div class="status-message">
+            <span class="spinner"></span>
+            <span id="download-status-text">Fetching file details...</span>
+          </div>
+        </div>
+
+        <div class="error-container" id="error-container" style="display: none;">
+          <div class="error-message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="error-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span id="error-text">An error occurred</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p class="footer-text">🔒 All files are encrypted and automatically deleted after expiration.</p>
+      <p class="footer-text">© 2024 CodeShare. Built for privacy and simplicity.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
