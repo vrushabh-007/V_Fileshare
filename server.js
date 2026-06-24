@@ -161,9 +161,18 @@ app.get('/api/download/:code', (req, res) => {
       return res.status(404).json({ error: 'File no longer available' });
     }
 
-    db.prepare('UPDATE files SET downloads = downloads + 1 WHERE code = ?').run(code);
-
-    res.download(filePath, sanitizeFilename(file.original_name));
+    res.download(filePath, sanitizeFilename(file.original_name), (err) => {
+      if (!err) {
+        try {
+          db.prepare('DELETE FROM files WHERE code = ?').run(code);
+          if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+          }
+        } catch (cleanupErr) {
+          console.error('Failed to clean up file after download:', cleanupErr);
+        }
+      }
+    });
   } catch (error) {
     console.error('Download processing failed:', error);
     res.status(500).json({ error: 'Internal server error during file retrieval' });

@@ -1,7 +1,6 @@
 // DOM Elements
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('fileInput');
-const uploadCard = document.getElementById('upload-card');
 const progressContainer = document.getElementById('progress-container');
 const resultContainer = document.getElementById('result-container');
 const progressBar = document.getElementById('progress-bar');
@@ -20,6 +19,31 @@ const errorText = document.getElementById('error-text');
 const uploadingFileName = document.getElementById('uploading-file-name');
 const expiryHoursText = document.getElementById('expiry-hours-text');
 const copyTooltip = document.getElementById('copy-tooltip');
+
+// Tab Toggling Elements
+const tabSendBtn = document.getElementById('tab-send-btn');
+const tabReceiveBtn = document.getElementById('tab-receive-btn');
+const sendSection = document.getElementById('send-section');
+const receiveSection = document.getElementById('receive-section');
+
+// Tab toggling logic
+if (tabSendBtn && tabReceiveBtn && sendSection && receiveSection) {
+  tabSendBtn.addEventListener('click', () => {
+    tabSendBtn.classList.add('active');
+    tabReceiveBtn.classList.remove('active');
+    sendSection.classList.remove('hidden');
+    receiveSection.classList.add('hidden');
+    hide(errorContainer); // Clear errors when switching
+  });
+
+  tabReceiveBtn.addEventListener('click', () => {
+    tabReceiveBtn.classList.add('active');
+    tabSendBtn.classList.remove('active');
+    receiveSection.classList.remove('hidden');
+    sendSection.classList.add('hidden');
+    hide(errorContainer); // Clear errors when switching
+  });
+}
 
 let uploadXhr = null;
 

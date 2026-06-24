@@ -85,9 +85,16 @@ test('V_Fileshare Integration and Unit Tests', async (t) => {
     const content = await res.text();
     assert.strictEqual(content, 'Hello V_Fileshare World!', 'Downloaded content should match uploaded content');
 
-    // Verify download count incremented
+    // Wait a brief moment to allow the res.download callback to finish unlinking the file
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Verify file record is deleted from database
     const fileRecord = db.prepare('SELECT downloads FROM files WHERE code = ?').get(activeCode);
-    assert.strictEqual(fileRecord.downloads, 1, 'Download count in DB should increment to 1');
+    assert.strictEqual(fileRecord, undefined, 'File record should be deleted from DB after download');
+
+    // Verify subsequent download attempt returns 404
+    const secondRes = await fetch(`${baseUrl}/api/download/${activeCode}`);
+    assert.strictEqual(secondRes.status, 404, 'Subsequent download should return 404');
   });
 
   // 4. Test File Upload (Blocked Extension)

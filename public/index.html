@@ -1,108 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>V_Fileshare - Quick & Secure File Sharing</title>
+  <title>V_FileShare - Share Files Anonymously & Securely</title>
+  <!-- Modern space-grotesk font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <div class="container">
+  <!-- Grid Background Pattern -->
+  <div class="grid-background"></div>
+  <div class="radial-overlay"></div>
+
+  <div class="app-container">
+    <!-- Header -->
     <header class="app-header">
       <div class="logo">
-        <img src="logo.svg" alt="V_Fileshare" class="logo-icon" width="32" height="32" />
-        <h1>V_Fileshare</h1>
+        <img src="logo.png" alt="FileShare Logo" class="logo-icon" />
+        <h1>V_FileShare</h1>
       </div>
-      <p class="tagline">Share files directly using simple 6-digit codes. No accounts, no tracking, completely private.</p>
+      <p class="tagline">Anonymous &amp; Secure file sharing. Files disappear immediately after download.</p>
     </header>
 
-    <main class="grid">
-      <!-- Send File Card -->
-      <section class="card" id="upload-card">
-        <div class="card-header">
-          <h2>Send a File</h2>
-          <p class="card-subtitle">Upload any file up to 500MB. We'll generate a shareable 6-digit code.</p>
-        </div>
-        
-        <div class="upload-zone" id="drop-zone">
-          <input type="file" id="fileInput" class="file-input-hidden" />
-          <div class="upload-zone-content">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="upload-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><polyline points="9 15 12 12 15 15"></polyline></svg>
-            <span class="upload-prompt">Drag & drop file here or <span class="browse-btn">browse files</span></span>
-            <span class="upload-details" id="file-size-info">Supports files up to 500 MB</span>
+    <!-- Main Container -->
+    <main class="main-card">
+      <!-- Tabs Selector Header -->
+      <div class="tabs-header">
+        <button type="button" class="tab-btn active" id="tab-send-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          Send File
+        </button>
+        <button type="button" class="tab-btn" id="tab-receive-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Receive File
+        </button>
+      </div>
+
+      <!-- Card Content Panels -->
+      <div class="card-content">
+        <!-- Send Section -->
+        <div class="panel-section" id="send-section">
+          <!-- Upload Zone -->
+          <div class="upload-zone" id="drop-zone">
+            <input type="file" id="fileInput" class="file-input-hidden" />
+            <div class="upload-zone-content">
+              <div class="upload-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                  class="upload-icon">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="12" y1="18" x2="12" y2="12"></line>
+                  <polyline points="9 15 12 12 15 15"></polyline>
+                </svg>
+              </div>
+              <span class="upload-prompt">Drag &amp; drop file here or <span class="browse-btn">browse
+                  files</span></span>
+              <span class="upload-details" id="file-size-info">Supports files up to 500 MB</span>
+            </div>
+          </div>
+
+          <!-- Progress Container -->
+          <div class="progress-container" id="progress-container" style="display: none;">
+            <div class="progress-header">
+              <span class="file-name-label" id="uploading-file-name">filename.zip</span>
+              <span class="progress-percentage" id="progress-text">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="progress-footer">
+              <span class="upload-status" id="upload-status">Preparing upload...</span>
+              <button class="btn-cancel" id="cancel-upload-btn" title="Cancel upload">Cancel</button>
+            </div>
+          </div>
+
+          <!-- Upload Result -->
+          <div class="result-container" id="result-container" style="display: none;">
+            <div class="success-banner">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" class="success-icon">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>Upload successful!</span>
+            </div>
+            <p class="result-instruction">Share this code with the recipient. Once downloaded, it will disappear
+              forever.</p>
+
+            <div class="code-display-wrapper">
+              <div class="code-display" id="resultCode">------</div>
+              <button class="icon-btn" id="copy-code-btn" title="Copy code to clipboard">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span class="tooltip" id="copy-tooltip">Copy code</span>
+              </button>
+            </div>
+
+            <div class="result-footer">
+              <p class="expiry-note">Expires in <span id="expiry-hours-text">24</span> hours if not downloaded</p>
+              <button class="btn btn-secondary-small" id="reset-upload-btn">Send Another File</button>
+            </div>
           </div>
         </div>
 
-        <div class="progress-container" id="progress-container" style="display: none;">
-          <div class="progress-header">
-            <span class="file-name-label" id="uploading-file-name">filename.zip</span>
-            <span class="progress-percentage" id="progress-text">0%</span>
+        <!-- Receive Section -->
+        <div class="panel-section hidden" id="receive-section">
+          <p class="receive-instruction">Enter the 6-digit code shared with you to download the file.</p>
+          <div class="code-input-form">
+            <div class="code-input-wrapper">
+              <input type="text" id="codeInput" class="code-input" placeholder="000 000" maxlength="7"
+                autocomplete="off" inputmode="numeric" />
+            </div>
+            <button class="btn btn-primary" id="download-btn">Retrieve File</button>
           </div>
-          <div class="progress-track">
-            <div class="progress-bar" id="progress-bar"></div>
-          </div>
-          <div class="progress-footer">
-            <span class="upload-status" id="upload-status">Preparing upload...</span>
-            <button class="btn-cancel" id="cancel-upload-btn" title="Cancel upload">Cancel</button>
-          </div>
-        </div>
 
-        <div class="result-container" id="result-container" style="display: none;">
-          <div class="success-banner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="success-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            <span>Upload successful!</span>
+          <!-- Download Status -->
+          <div class="status-container" id="download-status-container" style="display: none;">
+            <div class="status-message">
+              <span class="spinner"></span>
+              <span id="download-status-text">Fetching file details...</span>
+            </div>
           </div>
-          <p class="result-instruction">Share this code with the recipient. They can enter it to download your file.</p>
-          <div class="code-display-wrapper">
-            <div class="code-display" id="resultCode">------</div>
-            <button class="icon-btn" id="copy-code-btn" title="Copy code to clipboard">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              <span class="tooltip" id="copy-tooltip">Copy code</span>
-            </button>
-          </div>
-          <div class="result-footer">
-            <p class="expiry-note">Expires in <span id="expiry-hours-text">24</span> hours</p>
-            <button class="btn btn-secondary-small" id="reset-upload-btn">Send Another File</button>
-          </div>
-        </div>
-      </section>
 
-      <!-- Receive File Card -->
-      <section class="card" id="download-card">
-        <div class="card-header">
-          <h2>Receive a File</h2>
-          <p class="card-subtitle">Enter a 6-digit code shared with you to retrieve the file securely.</p>
-        </div>
-        
-        <div class="code-input-form">
-          <div class="code-input-wrapper">
-            <input type="text" id="codeInput" class="code-input" placeholder="000 000" maxlength="7" autocomplete="off" inputmode="numeric" />
+          <!-- Error Alert -->
+          <div class="error-container" id="error-container" style="display: none;">
+            <div class="error-message">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" class="error-icon">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span id="error-text">An error occurred</span>
+            </div>
           </div>
-          <button class="btn btn-primary" id="download-btn">Download File</button>
         </div>
+      </div>
 
-        <div class="status-container" id="download-status-container" style="display: none;">
-          <div class="status-message">
-            <span class="spinner"></span>
-            <span id="download-status-text">Fetching file details...</span>
-          </div>
-        </div>
-
-        <div class="error-container" id="error-container" style="display: none;">
-          <div class="error-message">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="error-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            <span id="error-text">An error occurred</span>
-          </div>
-        </div>
-      </section>
+      <!-- Small Warning/Disclaimer Note at the bottom -->
+      <div class="card-footer-disclaimer">
+        <p>Maximum file size allowed: 500MB. Beware of viruses and malware.</p>
+      </div>
     </main>
 
+    <!-- App Footer -->
     <footer class="app-footer">
-      <p class="footer-text">🔒 All files are encrypted and automatically deleted after expiration.</p>
-      <p class="footer-text">© 2024 V_Fileshare. Built for privacy and simplicity.</p>
+      <p class="footer-text">🔒 Files are encrypted and automatically deleted immediately after download.</p>
+      <p class="footer-text">&copy; 2026 FileShare. Built for absolute privacy.</p>
     </footer>
   </div>
 
   <script src="app.js"></script>
 </body>
+
 </html>
